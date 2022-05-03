@@ -77,7 +77,7 @@ namespace DatabaseConsole.Migrations
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     RateId = table.Column<int>(type: "int", nullable: false),
                     CropDetailId = table.Column<int>(type: "int", nullable: false),
-                    FieldDetailId = table.Column<int>(type: "int", nullable: true)
+                    FieldDetailId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,7 +98,8 @@ namespace DatabaseConsole.Migrations
                         name: "FK_Transcations_FieldDetails_FieldDetailId",
                         column: x => x.FieldDetailId,
                         principalTable: "FieldDetails",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Transcations_Rates_RateId",
                         column: x => x.RateId,

@@ -20,10 +20,14 @@ namespace DatabaseConsole.Models
         public int RateId { get; set; }
         public int CropDetailId { get; set; }
 
+        public int FieldDetailId { get; set; }
+
 
         public virtual Customer Customer { get; set; }
         public virtual Rate Rate { get; set; }
         public virtual CropDetail CropDetail { get; set; }
+
+        public virtual FieldDetail FieldDetail { get; set; }
         public virtual ICollection<PaidStatus> PaidStatuss { get; set; } = null!;
     }
 }

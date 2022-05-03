@@ -60,19 +60,20 @@ trans = new Transcation()
     CustomerId = getCust[0].Id,
     CropDetailId = getCust[0].Id,
     RateId = getRate[0].Id,
-    
+    FieldDetailId = getField[0].Id,
     PaidStatuss = new List<PaidStatus>(){
         new PaidStatus()
         {
             Status = "unpaid"
         }
-    }
+    },
+    
 };
 
 
 
-//var cust = context.Customers.First(x => x.CustomerId == 1);
-//cust.TotalAmount += trans.Price;
+var cust = context.Customers.First(x => x.Id == 1);
+cust.TotalAmount += trans.PriceT;
 
 
 context.Add(trans);
