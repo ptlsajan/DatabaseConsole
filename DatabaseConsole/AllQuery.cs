@@ -94,19 +94,66 @@ namespace DatabaseConsole
                 Console.WriteLine("Please enter first and last name");
             }
         }
-
-        public void DataForTranscation()
+        
+        public void InsertCrop(DatabaseContext context)
         {
-            Console.WriteLine("Enter Customer name you want to add record");
-            var customerName = Console.ReadLine();
-            Console.WriteLine("Enter Start Hour in format (hh:mm)");
-            var startHour = Console.ReadLine();
-            Console.WriteLine("Enter End Hour in format (hh:mm)");
-            var endTime = Console.ReadLine();
-            Console.WriteLine("Enter Crop Name");
-            var cropName = Console.ReadLine();
-            Console.WriteLine("Enter Field Name");
-            var fieldName = Console.ReadLine();
+            Console.WriteLine("Enter the crop you want to add");
+            var cropToAdd = Console.ReadLine();
+            if (cropToAdd != null)
+            {
+                context.Add(new CropDetail
+                {
+                    Crop = cropToAdd
+                });
+                context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("Error!! please try again");
+            }
+        }
+
+        public void InsertField(DatabaseContext context)
+        {
+            Console.WriteLine("Enter the Field you want to add");
+            var fieldToAdd = Console.ReadLine();
+            if (fieldToAdd != null)
+            {
+                context.Add(new FieldDetail
+                {
+                    Field = fieldToAdd
+                });
+                context.SaveChanges();
+            }
+            else
+            {
+                Console.WriteLine("Error!! please try again");
+            }
+        }
+
+        public void UpdatePaidStatus(DatabaseContext context)
+        {
+            var getTranscation = context.Transcations.Where(x => x.PriceT > 0).
+                Select(x => new { x.Id, x.PriceT }).ToList();
+            var getPaidStatus = context.PaidStatuss.First(x => x.Id == x.Id);
+
+/*            var query = (from t in context.Transcations
+                         where t.PriceT > 0
+                         select(t => new { }).ToList();*/
+
+            foreach (var item in getTranscation)
+            {
+                Console.WriteLine("{0} : {1}", item.Id, item.PriceT);
+            }
+        }
+
+        public void updateRate(DatabaseContext context)
+        {
+            Console.WriteLine("Enter the Rate per hour");
+            var rateChange = decimal.Parse(Console.ReadLine());
+            var rate = context.Rates.First(x => x.Id == 1);
+            rate.Price = rateChange;
+            context.SaveChanges();
         }
 
     }

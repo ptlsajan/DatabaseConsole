@@ -7,7 +7,10 @@ Console.WriteLine("Connecting to database!!");
 using DatabaseContext context = new DatabaseContext();
 
 AllQuery allQuery = new AllQuery();
-allQuery.InsertTranscation(context);
+//allQuery.InsertTranscation(context);
+
+allQuery.UpdatePaidStatus(context);
+
 
 //var trans = context.Customers.Include(t => t.Transcations);
 
