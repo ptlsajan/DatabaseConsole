@@ -1,10 +1,13 @@
 ﻿using DatabaseConsole.Models;
 using DatabaseConsole.Data;
 using Microsoft.EntityFrameworkCore;
-
+using DatabaseConsole;
 
 Console.WriteLine("Connecting to database!!");
 using DatabaseContext context = new DatabaseContext();
+
+AllQuery allQuery = new AllQuery();
+allQuery.InsertTranscation(context);
 
 //var trans = context.Customers.Include(t => t.Transcations);
 
@@ -37,24 +40,26 @@ foreach (var item in c)
 
 */
 
+/*
+
+//---------------------------------------------------------------------------------------
+
+// insert into transcation using all foreign key
+
 var getCust = context.Customers.Where(x => x.Id == 1).ToList();
 var getRate = context.Rates.Where(r => r.Price == r.Price).ToList();
 var getField = context.FieldDetails.Where(x => x.Field == "Charo").ToList();
 var getCrop = context.CropDetails.Where(x => x.Crop == "Rice").ToList();
-decimal totalHour = 2;
+decimal totalHour = 4;
 
-
-//---------------------------------------------------------------------------------------
-
-// insert into transcation using customer foreign key
 
 var trans = new Transcation();
 
 trans = new Transcation()
 {
     StartHour = "12:30",
-    EndHour = "14:30",
-    TotalHours = 2,
+    EndHour = "18:30",
+    TotalHours = 4,
     PriceT = totalHour * getRate[0].Price,
     PriceP = 0,
     CustomerId = getCust[0].Id,
@@ -83,7 +88,7 @@ Console.WriteLine("Saved to database!!");
 //---------------------------------------------------------------------------------------
 
 
-
+*/
 
 
 //---------------------------------------------------------------------------------------
