@@ -40,7 +40,7 @@ foreach (var item in c)
 var getCust = context.Customers.Where(x => x.Id == 1).ToList();
 var getRate = context.Rates.Where(r => r.Price == r.Price).ToList();
 var getField = context.FieldDetails.Where(x => x.Field == "Charo").ToList();
-var getCrop = context.CropDetails.Where(x => x.Crop == "").ToList();
+var getCrop = context.CropDetails.Where(x => x.Crop == "Rice").ToList();
 decimal totalHour = 2;
 
 
@@ -58,6 +58,15 @@ trans = new Transcation()
     PriceT = totalHour * getRate[0].Price,
     PriceP = 0,
     CustomerId = getCust[0].Id,
+    CropDetailId = getCust[0].Id,
+    RateId = getRate[0].Id,
+    
+    PaidStatuss = new List<PaidStatus>(){
+        new PaidStatus()
+        {
+            Status = "unpaid"
+        }
+    }
 };
 
 
