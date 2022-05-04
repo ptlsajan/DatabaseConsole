@@ -16,6 +16,10 @@ namespace DatabaseConsole
             Console.WriteLine("Enter Customer name you want to add record");
             var customerName = Console.ReadLine();
 
+            Console.WriteLine("Enter transcation date");
+            var date = Console.ReadLine();
+            
+            //DateTime s = DateTime.Parse(date).Date;
             Console.WriteLine("Enter start hour in hh");
             var sh = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter start minute in mm");
@@ -46,6 +50,7 @@ namespace DatabaseConsole
             var trans = new Transcation();
             trans = new Transcation()
             {
+                TranscationDate = DateOnly.Parse(date),
                 StartHour = startTime,
                 EndHour = endTime,
                 TotalHours = (decimal)totalHours.TotalHours,
@@ -77,13 +82,16 @@ namespace DatabaseConsole
             var firstName = Console.ReadLine();
             Console.WriteLine("Enter LastName :");
             var lastName = Console.ReadLine();
+            Console.WriteLine("Enter Phone Number :");
+            var phone = Console.ReadLine();
 
             if (firstName != null && lastName !=null)
             {
                 var customer = new Customer()
                 {
                     FirstName = firstName,
-                    LastName = lastName
+                    LastName = lastName,
+                    Phone = phone,
                 };
                 context.Add(customer);
                 context.SaveChanges();
@@ -99,6 +107,7 @@ namespace DatabaseConsole
         {
             Console.WriteLine("Enter the crop you want to add");
             var cropToAdd = Console.ReadLine();
+
             if (cropToAdd != null)
             {
                 context.Add(new CropDetail
@@ -135,11 +144,11 @@ namespace DatabaseConsole
         {
             var getTranscation = context.Transcations.Where(x => x.PriceT > 0).
                 Select(x => new { x.Id, x.PriceT }).ToList();
-            var getPaidStatus = context.PaidStatuss.First(x => x.Id == x.Id);
+            //var getPaidStatus = context.PaidStatuss.First(x => x.Id == x.Id);
 
 /*            var query = (from t in context.Transcations
-                         where t.PriceT > 0
-                         select(t => new { }).ToList();*/
+                    where t.PriceT > 0
+                    select(t => new { }).ToList();*/
 
             foreach (var item in getTranscation)
             {

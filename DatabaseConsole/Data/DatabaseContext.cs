@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using DatabaseConsole.Models;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DatabaseConsole.Data
 {
@@ -29,6 +30,24 @@ namespace DatabaseConsole.Data
             {
                 optionsBuilder.UseSqlServer(@"Data Source = (localdb)\MSSQLLocalDB; Initial Catalog = Test; Integrated Security = True; Connect Timeout = 30; Encrypt = False; TrustServerCertificate = False; ApplicationIntent = ReadWrite; MultiSubnetFailover = False");
             }
+        }
+
+        protected override void ConfigureConventions(ModelConfigurationBuilder builder)
+        {
+            builder.Properties<DateOnly>()
+                .HaveConversion<DateOnlyConverter>()
+                .HaveColumnType("date");
+        }
+
+        public class DateOnlyConverter : ValueConverter<DateOnly, DateTime>
+        {
+            /// <summary>
+            /// Creates a new instance of this converter.
+            /// </summary>
+            public DateOnlyConverter() : base(
+                    d => d.ToDateTime(TimeOnly.MinValue),
+                    d => DateOnly.FromDateTime(d))
+            { }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

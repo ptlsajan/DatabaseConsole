@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DatabaseConsole.Models
 {
@@ -10,6 +11,8 @@ namespace DatabaseConsole.Models
             PaidStatuss = new HashSet<PaidStatus>();
         }
         public int Id { get; set; }
+
+        public DateOnly TranscationDate { get; set; }
         public string StartHour { get; set; }
         public string EndHour { get; set; }
 
